@@ -1,21 +1,49 @@
 import React from "react"
-import { Link } from "gatsby"
+import { graphql, StaticQuery } from 'gatsby'
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
-
-const IndexPage = () => (
-  <Layout>
+import HeroSection from "../components/Reusable/HeroSection"
+import Info from "../components/Reusable/Info"
+import DualInfo from "../components/Reusable/DualInfo"
+import Coursecart from "../components/Cart/Coursecart"
+const IndexPage = ({data}) => (
+  <Layout>  
     <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
+    <HeroSection img={data.img.childImageSharp.fluid} title="i write code" subtitle="E-Com" 
+    heroclass="hero-background"/>
+    <Info heading="About Us"/>
+    <Coursecart courses={data.courses}/>
+    <DualInfo heading="Team" />
   </Layout>
 )
-
+export const query=graphql`
+{
+  img: file(relativePath: { eq: "heromain.png" }) {
+    childImageSharp {
+      fluid{
+        ...GatsbyImageSharpFluid_tracedSVG
+      }
+    }
+  }
+  
+    courses:allContentfulCourses{
+      edges{
+       node{
+         id
+         title
+         price
+         category
+         description
+         image{
+           fixed(width:200,height:120){
+            ...GatsbyContentfulFixed_tracedSVG
+           }
+         }
+       }
+     }   
+   }
+ 
+}
+`
 export default IndexPage
