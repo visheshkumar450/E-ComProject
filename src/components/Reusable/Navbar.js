@@ -13,15 +13,11 @@ export default class Navbar extends Component {
             },{
             id:2,
             text:"About",
-            url:"/About"
+            url:"/about"
             },{
             id:3,
-            text:"Menu",
-            url:"/Menu"
-            },{
-            id:4,
             text:"Contact",
-            url:"/Contact"
+            url:"/contact"
             }]
     }
 
